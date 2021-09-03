@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+
+    <style>
+        body, html{
+            height: 100%;
+            margin: 0;
+        }
+        .container{
+            /* The image used */
+            background-image: url(https://www.wallpapertip.com/wmimgs/1-10690_city-lights-wallpaper-iphone.jpg);
+
+            /* Full height */
+            height: 100%; 
+            
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            
+            position: relative;
+        }
+        h2, h3, #Time, #sec{
+            margin: 0px;
+            color: rgb(255, 255, 255);
+            font-size: 40px;
+            font-family: Orbitron;
+            text-transform: uppercase;
+        }
+        #Time{
+            font-size: 7em;
+        }
+        #sec, #AmPm{
+            font-size: 20px;
+            color: yellow;
+        }
+        #AmPm{
+            color: aqua;
+            text-transform: uppercase;
+        }
+        h3{
+            text-align: end;
+            font-weight: bold;
+        }
+        .middle{
+            background-color: rgba(0, 0, 0, 0.432);
+            width: 440px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%)        }
+
+        @media screen and (max-width: 450px){
+            .middle{
+                width: 100%;
+            }
+            #Time{
+                font-size: 5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="middle">
+            
+            <div class="box-1">
+                <h2><span id="DayDate"></span></h2>
+            </div> 
+            <div class="box-2">
+                <span id="Time"></span>
+                <span id="sec"></span>
+                <span id="AmPm"></span>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let a; let time; let date; let day;
+    var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const months = ['Jan', 'Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+
+    setInterval(() => {
+        a = new Date();
+
+        // getting day in words
+        day = days[a.getDay()]
+
+        // getting date 
+        const mm = months[a.getMonth()];
+        const dd = a.getDate();
+        const yy = a.getFullYear();
+        date = dd + " " + mm + " " + yy +" "
+
+        // getting time in 12 hr formats
+        var minutes = a.getMinutes();
+        var hours = a.getHours();
+        var sec = a.getSeconds();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+
+        // making them in two digit format
+        hours = ("0" + (hours)).slice(-2)
+        minutes = ("0" + (minutes)).slice(-2)
+        sec = ("0" + (sec)).slice(-2)
+        var strTime = hours + ':' + minutes;
+
+        document.getElementById("DayDate").innerHTML = day + ", " + date;
+        document.getElementById("Time").innerHTML = strTime;
+        document.getElementById("sec").innerHTML = ":"+sec;
+        document.getElementById("AmPm").innerHTML = ampm;
+    }, 1000);
+    
+</script>
+</html>
